@@ -6,6 +6,46 @@
     <title>PFO Devops</title>
 </head>
 <body>
+    <h1>Formulario UI</h1>
+
+    <!-- Formulario para datos personales -->
+    <form id="formUsuario">
+        <label for="usuario" >Usuario:</label>
+        <input type="text" id="usuario" name="inputusuario" required placeholder="Ingrese su usuario:"><br><br>
+
+        <label for="contrasena">Contraseña:</label>
+        <input type="password" id="contrasena" name="contrasena" required><br><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        // Paso ii) Llamada Ajax simulada usando fetch
+        document.getElementById("formUsuario").addEventListener("submit", function(e) {
+            e.preventDefault(); // Evita que recargue la página
+
+            const datos = {
+                usuario: document.getElementById("usuario").value,
+                contrasena: document.getElementById("contrasena").value
+            };
+
+            fetch("http://localhost:3000/usuario", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(datos)
+            })
+            .then(res => res.json())
+            .then(respuesta => {
+                console.log("Respuesta del servidor:", respuesta);
+            })
+            .catch(error => {
+                console.error("Error al enviar los datos:", error);
+            });
+        });
+    </script>
+
     <h1>Formulario backend</h1>
     <form>
         <label for="email">Tu email:</label>
@@ -13,5 +53,6 @@
 
         <input type="submit" value="Suscribirse">
     </form>
+
 </body>
 </html>
